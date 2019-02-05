@@ -38,7 +38,7 @@ config :rumbl, Rumbl.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "rumbl_dev",
+  database: "postgres",
   hostname: "localhost",
   port: "5432",
   pool_size: 10

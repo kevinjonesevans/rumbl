@@ -9,3 +9,11 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
+
+Rumbl.Repo.insert!(
+  %Rumbl.User{
+    name: "Kevin",
+    username: "kevin",
+    password: "password"
+  }
+)
