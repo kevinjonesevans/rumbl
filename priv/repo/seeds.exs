@@ -10,10 +10,19 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-Rumbl.Repo.insert!(
-  %Rumbl.User{
-    name: "Kevin",
-    username: "kevin",
-    password: "password"
-  }
-)
+alias Rumbl.Repo
+alias Rumbl.Category
+
+for category <- ~w(Action Drama Romance Comedy Sci-Fi) do
+  Repo.get_by(Category, name: category) ||
+    Repo.insert!(%Category{name: category})
+end
+
+Repo.get_by(Rumbl.User, name: "Kevin") ||
+  Rumbl.Repo.insert!(
+    %Rumbl.User{
+      name: "Kevin",
+      username: "kevin",
+      password: "password"
+    }
+  )

@@ -6,9 +6,13 @@ defmodule Rumbl.Video do
     field :title, :string
     field :description, :string
     belongs_to :user, Rumbl.User
+    belongs_to :categories, Rumbl.Category
 
     timestamps()
   end
+
+  @required_fields ~w(url title description)
+  @optional_fields ~w(category_id)
 
   @doc """
   Builds a changeset based on the `struct` and `params`.
