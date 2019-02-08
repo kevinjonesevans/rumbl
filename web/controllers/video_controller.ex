@@ -8,8 +8,8 @@ defmodule Rumbl.VideoController do
           [conn, conn.params, conn.assings.current_user])
   end
 
-  def index(conn, _params) do
-    videos = Repo.all(Video)
+  def index(conn, _params, user) do
+    videos = Repo.all(user_videos(user))
     render(conn, "index.html", videos: videos)
   end
 
@@ -37,8 +37,8 @@ defmodule Rumbl.VideoController do
     end
   end
 
-  def show(conn, %{"id" => id}) do
-    video = Repo.get!(Video, id)
+  def show(conn, %{"id" => id}, user) do
+    video = Repo.get!(user_videos(user), id)
     render(conn, "show.html", video: video)
   end
 
@@ -48,8 +48,8 @@ defmodule Rumbl.VideoController do
     render(conn, "edit.html", video: video, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "video" => video_params}) do
-    video = Repo.get!(Video, id)
+  def update(conn, %{"id" => id, "video" => video_params}, user) do
+    video = Repo.get!(user_videos(user), id)
     changeset = Video.changeset(video, video_params)
 
     case Repo.update(changeset) do
@@ -62,8 +62,8 @@ defmodule Rumbl.VideoController do
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    video = Repo.get!(Video, id)
+  def delete(conn, %{"id" => id}, user) do
+    video = Repo.get!(user_videos(user), id)
 
     # Here we use delete! (with a bang) because we expect
     # it to always work (and if it does not, it will raise).
@@ -72,5 +72,9 @@ defmodule Rumbl.VideoController do
     conn
     |> put_flash(:info, "Video deleted successfully.")
     |> redirect(to: video_path(conn, :index))
+  end
+
+  defp user_videos(user) do
+    assoc(user, :videos)
   end
 end
