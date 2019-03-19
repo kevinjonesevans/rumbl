@@ -2,7 +2,7 @@ let Player = {
   player: null,
 
   init(domId, playerId, onReady){
-    window.unYoutubeIframeAPIReady = () => {
+    window.onYouTubeIframeAPIReady = () => {
       this.onIframeReady(domId, playerId, onReady)
     }
     let youtubeScriptTab = document.createElement("script")
