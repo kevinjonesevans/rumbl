@@ -7,6 +7,7 @@
       <th>Url</th>
       <th>Title</th>
       <th>Description</th>
+      <th>Slug</th>
 
       <th></th>
     </tr>
@@ -18,6 +19,7 @@
       <td><%= video.url %></td>
       <td><%= video.title %></td>
       <td><%= video.description %></td>
+      <td><%= video.slug %></td>
 
       <td class="text-right">
         <%= link "Watch", to: watch_path(@conn, :show, video), class: "btn btn-default btn-xs" %>
